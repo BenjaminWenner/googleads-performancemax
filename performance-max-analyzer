@@ -1,0 +1,28 @@
+// Pmax Analysis
+// by Benjamin Wenner
+// V1.0
+
+// Insert your google spreadsheet url below
+var SPREADSHEET_URL = 'insert your spreadsheet url';
+var sheet = SpreadsheetApp.openByUrl(SPREADSHEET_URL).getActiveSheet();
+var account = MccApp.accounts().get();
+
+// The function will name the columns we will be using
+var columnHeaders = [
+ ["Account ID", "Account Name", "Campaign", "Assetgroup", "Cost", "revenue"]
+ ];
+ 
+function main() { 
+ sheet.getRange("A1:F1").setValues(columnHeaders);
+var accountIterator = MccApp.accounts().executeInParallel('PMAX');
+}
+
+//  selector = selector.forDateRange("LAST_30_DAYS")
+
+// We will now select our search adgroups. Feel free to add additional conditions to exlude certain campaigns. The conditions below were set to exlcude dynamic search ads and dynamic pagefeed ads.
+function PMAX() {
+    var assetGroupIterator = campaign.assetGroups()
+ .withCondition('asset_group.status = ENABLED')
+ .withCondition("AdvertisingChannelType = PERFORMANCE_MAX")
+ .withCondition('CampaignStatus = ENABLED')
+ .get();
